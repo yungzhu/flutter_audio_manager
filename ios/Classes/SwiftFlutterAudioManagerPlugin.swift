@@ -96,7 +96,7 @@ public class SwiftFlutterAudioManagerPlugin: NSObject, FlutterPlugin {
     }
     
     func changeToBluetooth() -> Bool{
-        return changeByPortType(AVAudioSession.Port.bluetoothA2DP)
+        return changeByPortType(AVAudioSession.Port.bluetoothHFP) || changeByPortType(AVAudioSession.Port.bluetoothA2DP) || changeByPortType(AVAudioSession.Port.bluetoothLE)
     }
     
     func changeToCarAudio() -> Bool{
