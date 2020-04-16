@@ -88,31 +88,32 @@ public class SwiftFlutterAudioManagerPlugin: NSObject, FlutterPlugin {
     }
     
     func changeToReceiver() -> Bool{
-        return changeByPortType(AVAudioSession.Port.builtInMic)
+        return changeByPortType([AVAudioSession.Port.builtInMic])
     }
     
     func changeToHeadphones() -> Bool{
-        return changeByPortType(AVAudioSession.Port.headsetMic)
+        return changeByPortType([AVAudioSession.Port.headsetMic])
     }
     
     func changeToBluetooth() -> Bool{
-        return changeByPortType(AVAudioSession.Port.bluetoothHFP) || changeByPortType(AVAudioSession.Port.bluetoothA2DP) || changeByPortType(AVAudioSession.Port.bluetoothLE)
+        let arr = [AVAudioSession.Port.bluetoothLE,AVAudioSession.Port.bluetoothHFP,AVAudioSession.Port.bluetoothA2DP];
+        return changeByPortType(arr)
     }
     
     func changeToCarAudio() -> Bool{
-        return changeByPortType(AVAudioSession.Port.carAudio)
+        return changeByPortType([AVAudioSession.Port.carAudio])
     }
     
-    func changeByPortType(_ portType:AVAudioSession.Port) -> Bool{
+    func changeByPortType(_ ports:[AVAudioSession.Port]) -> Bool{
         let currentRoute = AVAudioSession.sharedInstance().currentRoute
         for output in currentRoute.outputs {
-            if(output.portType == portType){
+            if(ports.firstIndex(of: output.portType) != nil){
                 return true;
             }
         }
         if let inputs = AVAudioSession.sharedInstance().availableInputs {
             for input in inputs {
-                if(input.portType == portType){
+                if(ports.firstIndex(of: input.portType) != nil){
                     try?AVAudioSession.sharedInstance().setPreferredInput(input);
                     return true;
                 }
