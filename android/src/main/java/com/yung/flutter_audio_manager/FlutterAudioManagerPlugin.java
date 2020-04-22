@@ -105,16 +105,34 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
 
   private List<String> getCurrentOutput() {
     List<String> info = new ArrayList();
-    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      MediaRouter mr = (MediaRouter) activeContext.getSystemService(Context.MEDIA_ROUTER_SERVICE);
-      MediaRouter.RouteInfo routeInfo = mr.getSelectedRoute(MediaRouter.ROUTE_TYPE_LIVE_AUDIO);
-      info.add(routeInfo.getName().toString());
-      info.add(_getDeviceType(routeInfo.getDeviceType()));
+    if (audioManager.isSpeakerphoneOn()) {
+      info.add("Speaker");
+      info.add("2");
+    } else if (audioManager.isBluetoothScoOn()) {
+      info.add("Bluetooth");
+      info.add("4");
+    } else if (audioManager.isWiredHeadsetOn()) {
+      info.add("Headset");
+      info.add("3");
     } else {
-      info.add("unknow");
-      info.add("0");
+      info.add("Receiver");
+      info.add("1");
     }
     return info;
+    // if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+    // MediaRouter mr = (MediaRouter)
+    // activeContext.getSystemService(Context.MEDIA_ROUTER_SERVICE);
+    // MediaRouter.RouteInfo routeInfo =
+    // mr.getSelectedRoute(MediaRouter.ROUTE_TYPE_LIVE_AUDIO);
+    // Log.d("aaa", "getCurrentOutput:
+    // "+audioManager.isSpeakerphoneOn()+audioManager.isWiredHeadsetOn()+audioManager.isSpeakerphoneOn());
+    // info.add(routeInfo.getName().toString());
+    // info.add(_getDeviceType(routeInfo.getDeviceType()));
+    // } else {
+    // info.add("unknow");
+    // info.add("0");
+    // }
+    // return info;
   }
 
   private List<List<String>> getAvailableInputs() {
