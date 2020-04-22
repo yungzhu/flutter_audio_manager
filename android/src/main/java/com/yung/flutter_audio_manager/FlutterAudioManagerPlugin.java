@@ -78,6 +78,7 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     audioManager.stopBluetoothSco();
     audioManager.setBluetoothScoOn(false);
     audioManager.setSpeakerphoneOn(false);
+    listener.onChanged();
     return true;
   }
 
@@ -86,6 +87,7 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     audioManager.stopBluetoothSco();
     audioManager.setBluetoothScoOn(false);
     audioManager.setSpeakerphoneOn(true);
+    listener.onChanged();
     return true;
   }
 
@@ -97,6 +99,7 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
     audioManager.startBluetoothSco();
     audioManager.setBluetoothScoOn(true);
+    listener.onChanged();
     return true;
   }
 
@@ -106,7 +109,7 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
       MediaRouter mr = (MediaRouter) activeContext.getSystemService(Context.MEDIA_ROUTER_SERVICE);
       MediaRouter.RouteInfo routeInfo = mr.getSelectedRoute(MediaRouter.ROUTE_TYPE_LIVE_AUDIO);
       info.add(routeInfo.getName().toString());
-      info.add(_getDeviceType(routeInfo.getSupportedTypes()));
+      info.add(_getDeviceType(routeInfo.getDeviceType()));
     } else {
       info.add("unknow");
       info.add("0");
@@ -127,7 +130,7 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
   }
 
   private String _getDeviceType(int type) {
-    Log.d("type", "type: "+type);
+    Log.d("type", "type: " + type);
     switch (type) {
       case 3:
         return "3";
