@@ -49,7 +49,9 @@ class _MyAppState extends State<MyApp> {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Text("current output:${_currentInput.name}"),
+              Text(
+                "current output:${_currentInput.name} ${_currentInput.port}",
+              ),
               Divider(),
               Expanded(
                 child: ListView.builder(

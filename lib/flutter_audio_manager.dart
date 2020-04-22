@@ -2,23 +2,20 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 enum AudioPort {
-  /// unknow
+  /// unknow 0
   unknow,
 
-  /// input
+  /// input 1
   receiver,
 
-  /// out speaker
+  /// out speaker 2
   speaker,
 
-  /// headset
+  /// headset 3
   headphones,
 
-  /// bluetooth
+  /// bluetooth 4
   bluetooth,
-
-  /// car
-  carAudio,
 }
 
 class AudioInput {
@@ -76,10 +73,6 @@ class FlutterAudioManager {
 
   static Future<bool> changeToBluetooth() async {
     return await _channel.invokeMethod('changeToBluetooth');
-  }
-
-  static Future<bool> changeToCarAudio() async {
-    return await _channel.invokeMethod('changeToCarAudio');
   }
 
   static void setListener(void Function() onInputChanged) {

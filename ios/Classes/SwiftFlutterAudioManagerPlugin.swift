@@ -31,9 +31,6 @@ public class SwiftFlutterAudioManagerPlugin: NSObject, FlutterPlugin {
         else if(call.method == "changeToBluetooth"){
             result(changeToBluetooth())
         }
-        else if(call.method == "changeToCarAudio"){
-            result(changeToCarAudio())
-        }
         result("iOS " + UIDevice.current.systemVersion)
   }
   func getCurrentOutput() -> [String]  {
@@ -73,9 +70,6 @@ public class SwiftFlutterAudioManagerPlugin: NSObject, FlutterPlugin {
         case port.bluetoothA2DP,port.bluetoothLE,port.bluetoothHFP:
             type="4";
             break;
-        case port.carAudio:
-            type="5";
-            break;
         default:
             type="0";
         }
@@ -98,10 +92,6 @@ public class SwiftFlutterAudioManagerPlugin: NSObject, FlutterPlugin {
     func changeToBluetooth() -> Bool{
         let arr = [AVAudioSession.Port.bluetoothLE,AVAudioSession.Port.bluetoothHFP,AVAudioSession.Port.bluetoothA2DP];
         return changeByPortType(arr)
-    }
-    
-    func changeToCarAudio() -> Bool{
-        return changeByPortType([AVAudioSession.Port.carAudio])
     }
     
     func changeByPortType(_ ports:[AVAudioSession.Port]) -> Bool{
