@@ -164,7 +164,9 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     // 切换到正常的模式
-    channel.setMethodCallHandler(null);
-    channel = null;
+    if(channel != null){
+      channel.setMethodCallHandler(null);
+      channel = null;
+    }
   }
 }
