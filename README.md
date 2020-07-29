@@ -1,7 +1,8 @@
 # flutter_audio_manager
 
-Provides audio source switching control
-Provide current audio input/output control
+-   Support to get the current output audio device
+-   Support listening to input device changes
+-   Support switching audio input/output devices
 
 ## Getting Started
 
