@@ -42,32 +42,31 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              Text(
-                "current output:${_currentInput.name} ${_currentInput.port}",
-              ),
-              Divider(),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (_, index) {
-                    AudioInput input = _availableInputs[index];
-                    return Row(
-                      children: <Widget>[
-                        Expanded(child: Text("${input.name}")),
-                        Expanded(child: Text("${input.port}")),
-                      ],
-                    );
-                  },
-                  itemCount: _availableInputs.length,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "current output:${_currentInput.name} ${_currentInput.port}",
                 ),
-              ),
-            ],
+                Divider(),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (_, index) {
+                      AudioInput input = _availableInputs[index];
+                      return Row(
+                        children: <Widget>[
+                          Expanded(child: Text("${input.name}")),
+                          Expanded(child: Text("${input.port}")),
+                        ],
+                      );
+                    },
+                    itemCount: _availableInputs.length,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         floatingActionButton: FloatingActionButton(
