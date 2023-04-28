@@ -114,7 +114,7 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     if (audioManager.isSpeakerphoneOn()) {
       info.add("Speaker");
       info.add("2");
-    } else if (hasBluetoothDevice()) {
+    } else if (getDuringCallBluetoothActive()) {
       info.add("Bluetooth");
       info.add("4");
     } else if (hasHeadsetDevice()) {
