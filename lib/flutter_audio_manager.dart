@@ -57,6 +57,18 @@ class FlutterAudioManager {
     return arr;
   }
 
+  static Future<bool> hasBluetoothDevice() async {
+    bool hasBluetoothDevice = await _channel.invokeMethod('hasBluetoothDevice');
+
+    return hasBluetoothDevice;
+  }
+
+  static Future<bool> hasHeadsetDevice() async {
+    bool hasHeadsetDevice = await _channel.invokeMethod('hasHeadsetDevice');
+
+    return hasHeadsetDevice;
+  }
+
   static Future<bool> getDuringCallBluetoothActive() async {
     bool activated = await _channel.invokeMethod('getDuringCallBluetoothActive');
 

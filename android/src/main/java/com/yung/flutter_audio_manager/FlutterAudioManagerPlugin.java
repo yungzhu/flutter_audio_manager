@@ -60,6 +60,10 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
       result.success(getCurrentOutput());
     } else if (call.method.equals("getAvailableInputs")) {
       result.success(getAvailableInputs());
+    } else if (call.method.equals("hasBluetoothDevice")) {
+      result.success(hasBluetoothDevice());
+    } else if (call.method.equals("hasHeadsetDevice")) {
+      result.success(hasHeadsetDevice());
     } else if (call.method.equals("getDuringCallBluetoothActive")) {
       result.success(getDuringCallBluetoothActive());
     } else if (call.method.equals("changeToReceiver")) {
@@ -110,10 +114,10 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     if (audioManager.isSpeakerphoneOn()) {
       info.add("Speaker");
       info.add("2");
-    } else if (audioManager.isBluetoothScoAvailableOffCall() && audioManager.isBluetoothA2dpOn()) {
+    } else if (hasBluetoothDevice()) {
       info.add("Bluetooth");
       info.add("4");
-    } else if (audioManager.isWiredHeadsetOn()) {
+    } else if (hasHeadsetDevice()) {
       info.add("Headset");
       info.add("3");
     } else {
@@ -140,16 +144,25 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
   private List<List<String>> getAvailableInputs() {
     List<List<String>> list = new ArrayList();
     list.add(Arrays.asList("Receiver", "1"));
-    if (audioManager.isWiredHeadsetOn()) {
+    if (hasHeadsetDevice()) {
       list.add(Arrays.asList("Headset", "3"));
     }
-    if (audioManager.isBluetoothScoAvailableOffCall() && audioManager.isBluetoothA2dpOn()) {
+    if (hasBluetoothDevice()) {
       list.add(Arrays.asList("Bluetooth", "4"));
     }
     return list;
   }
 
-  private Boolean getAvailableInputs() {
+
+  private Boolean hasBluetoothDevice() {
+    return audioManager.isBluetoothScoAvailableOffCall() && audioManager.isBluetoothA2dpOn();
+  }
+
+  private Boolean hasHeadsetDevice() {
+    return audioManager.isWiredHeadsetOn();
+  }
+
+  private Boolean getDuringCallBluetoothActive() {
     return audioManager.isBluetoothScoOn();
   }
 
