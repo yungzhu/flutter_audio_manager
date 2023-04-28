@@ -114,6 +114,9 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     } else if (audioManager.isWiredHeadsetOn()) {
       info.add("Headset");
       info.add("3");
+    } else if (audioManager.isBluetoothA2dpOn()) {
+      info.add("Bluetooth");
+      info.add("5");
     } else {
       info.add("Receiver");
       info.add("1");
@@ -143,6 +146,9 @@ public class FlutterAudioManagerPlugin implements FlutterPlugin, MethodCallHandl
     }
     if (audioManager.isBluetoothScoOn()) {
       list.add(Arrays.asList("Bluetooth", "4"));
+    }
+    if (audioManager.isBluetoothA2dpOn()) {
+      list.add(Arrays.asList("Bluetooth", "5"));
     }
     return list;
   }
