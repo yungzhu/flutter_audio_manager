@@ -57,6 +57,12 @@ class FlutterAudioManager {
     return arr;
   }
 
+  static Future<bool> getDuringCallBluetoothActive() async {
+    bool activated = await _channel.invokeMethod('getDuringCallBluetoothActive');
+
+    return activated;
+  }
+
   static Future<bool> changeToSpeaker() async {
     return await _channel.invokeMethod('changeToSpeaker');
   }
