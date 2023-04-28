@@ -34,9 +34,8 @@ class AudioInput {
 }
 
 class FlutterAudioManager {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_audio_manager');
-  static void Function() _onInputChanged;
+  static const MethodChannel _channel = const MethodChannel('flutter_audio_manager');
+  static void Function()? _onInputChanged;
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -49,8 +48,7 @@ class FlutterAudioManager {
   }
 
   static Future<List<AudioInput>> getAvailableInputs() async {
-    final List<dynamic> list =
-        await _channel.invokeMethod('getAvailableInputs');
+    final List<dynamic> list = await _channel.invokeMethod('getAvailableInputs');
 
     List<AudioInput> arr = [];
     list.forEach((data) {
@@ -84,7 +82,7 @@ class FlutterAudioManager {
     if (_onInputChanged == null) return;
     switch (call.method) {
       case "inputChanged":
-        return _onInputChanged();
+        return _onInputChanged!.call();
       default:
         break;
     }
